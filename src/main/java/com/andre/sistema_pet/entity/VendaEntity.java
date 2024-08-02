@@ -31,5 +31,5 @@ public class VendaEntity {
     private ClienteEntity cliente;
 
     @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ItemVenda> itens;
+    private List<ItemVendaEntity> itens;
 }
