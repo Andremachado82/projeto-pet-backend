@@ -9,11 +9,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ClienteService {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+    public List<ClienteResponse> findAll() {
+        return clienteRepository.findAll().stream()
+                .map(ClienteMapper::toResponse)
+                .collect(Collectors.toList());
+    }
 
     @Transactional
     public ClienteResponse create(ClienteRequest request) {
