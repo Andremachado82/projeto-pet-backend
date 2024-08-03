@@ -1,0 +1,26 @@
+meta {
+  name: Criar Pet
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/api/pets
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nome": "Rex",
+    "especie": "Cachorro",
+    "sexo": "macho",
+    "raca": "Labrador",
+    "idade": "3 anos",
+    "statusDeSaude": "Saudável",
+    "ultimaVisitaVeterinaria": "2024-01-15",
+    "dataNascimento": "2021-03-12",    
+    "observacoes": "Muito ativo",
+    "idCliente": 1
+  }
+}

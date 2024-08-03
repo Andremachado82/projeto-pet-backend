@@ -1,12 +1,12 @@
 meta {
-  name: Criar Cliente
+  name: Buscar Pet Por ID
   type: http
-  seq: 2
+  seq: 7
 }
 
-post {
-  url: http://localhost:8080/api/clientes
-  body: json
+get {
+  url: http://localhost:8080/api/pets
+  body: none
   auth: none
 }
 
