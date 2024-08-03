@@ -29,4 +29,17 @@ public class ClienteController {
         List<ClienteResponse> clientes = clienteService.findAll();
         return ResponseEntity.ok(clientes);
     }
+
+    @GetMapping("/{id}")
+    public ClienteResponse getClienteById(@PathVariable Long id) {
+        return clienteService.getClienteById(id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ClienteResponse> updateCliente(
+            @PathVariable Long id,
+            @Valid @RequestBody ClienteRequest request) {
+        ClienteResponse updatedCliente = clienteService.update(id, request);
+        return ResponseEntity.ok(updatedCliente);
+    }
 }
