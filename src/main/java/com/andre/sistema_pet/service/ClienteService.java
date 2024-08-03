@@ -19,7 +19,7 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
     public List<ClienteResponse> findAll() {
-        return clienteRepository.findAll().stream()
+        return clienteRepository.findAllWithPets().stream()
                 .map(ClienteMapper::toResponse)
                 .collect(Collectors.toList());
     }

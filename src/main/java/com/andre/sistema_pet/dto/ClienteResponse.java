@@ -2,6 +2,8 @@ package com.andre.sistema_pet.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class ClienteResponse {
 
@@ -15,6 +17,7 @@ public class ClienteResponse {
     private String logradouro;
     private String nro;
     private String bairro;
-    private String cidade;
-    private String estado;
+    private String localidade;
+    private String uf;
+    private List<PetResponse> pets;
 }

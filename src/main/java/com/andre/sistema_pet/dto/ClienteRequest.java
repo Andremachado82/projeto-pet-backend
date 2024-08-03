@@ -32,8 +32,8 @@ public class ClienteRequest {
     private String bairro;
 
     @NotEmpty(message = "Cidade é obrigatória")
-    private String cidade;
+    private String localidade;
 
     @NotEmpty(message = "Estado é obrigatório")
-    private String estado;
+    private String uf;
 }

@@ -4,6 +4,8 @@ import com.andre.sistema_pet.dto.ClienteRequest;
 import com.andre.sistema_pet.dto.ClienteResponse;
 import com.andre.sistema_pet.entity.ClienteEntity;
 
+import java.util.stream.Collectors;
+
 public class ClienteMapper {
 
     public static ClienteEntity toEntity(ClienteRequest request) {
@@ -17,8 +19,8 @@ public class ClienteMapper {
         cliente.setLogradouro(request.getLogradouro());
         cliente.setNro(request.getNro());
         cliente.setBairro(request.getBairro());
-        cliente.setCidade(request.getCidade());
-        cliente.setEstado(request.getEstado());
+        cliente.setLocalidade(request.getLocalidade());
+        cliente.setUf(request.getUf());
         return cliente;
     }
 
@@ -34,8 +36,16 @@ public class ClienteMapper {
         response.setLogradouro(cliente.getLogradouro());
         response.setNro(cliente.getNro());
         response.setBairro(cliente.getBairro());
-        response.setCidade(cliente.getCidade());
-        response.setEstado(cliente.getEstado());
+        response.setLocalidade(cliente.getLocalidade());
+        response.setUf(cliente.getUf());
+
+        // Adiciona os pets à resposta
+        if (cliente.getPets() != null) {
+            response.setPets(cliente.getPets().stream()
+                    .map(PetMapper::toResponse) // Assumindo que você tem um PetMapper
+                    .collect(Collectors.toList()));
+        }
+
         return response;
     }
 }
