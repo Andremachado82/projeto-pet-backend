@@ -47,4 +47,18 @@ public class PetMapper {
         response.setIdCliente(entity.getCliente().getId());
         return response;
     }
+
+    public static PetRequest toRequest(PetEntity entity) {
+        PetRequest request = new PetRequest();
+        request.setNome(entity.getNome());
+        request.setEspecie(entity.getEspecie());
+        request.setSexo(entity.getSexo());
+        request.setRaca(entity.getRaca());
+        request.setIdade(entity.getIdade());
+        request.setStatusDeSaude(entity.getStatusDeSaude());
+        request.setUltimaVisitaVeterinaria(entity.getUltimaVisitaVeterinaria());
+        request.setDataNascimento(entity.getDataNascimento());
+        request.setObservacoes(entity.getObservacoes());
+        return request;
+    }
 }

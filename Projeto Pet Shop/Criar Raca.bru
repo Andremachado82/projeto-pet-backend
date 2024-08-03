@@ -1,0 +1,26 @@
+meta {
+  name: Criar Raca
+  type: http
+  seq: 8
+}
+
+post {
+  url: http://localhost:8080/api/racas
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nome": "Jujuba",
+    "especie": "Cadela",
+    "sexo": "fêmea",
+    "raca": "Labrador",
+    "idade": "2 anos",
+    "statusDeSaude": "Saudável",
+    "ultimaVisitaVeterinaria": "2023-01-15",
+    "dataNascimento": "2022-03-12",    
+    "observacoes": "Muito ativo",
+    "idCliente": 1
+  }
+}

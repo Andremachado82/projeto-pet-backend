@@ -1,0 +1,17 @@
+meta {
+  name: Criar Especie
+  type: http
+  seq: 10
+}
+
+post {
+  url: http://localhost:8080/api/especie
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nome": "Pitbull"
+  }
+}
