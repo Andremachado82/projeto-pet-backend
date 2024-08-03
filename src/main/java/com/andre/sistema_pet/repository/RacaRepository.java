@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ClienteRepository extends JpaRepository<ClienteEntity, Long> {
+public interface RacaRepository extends JpaRepository<ClienteEntity, Long> {
 
     @Query("SELECT c FROM ClienteEntity c LEFT JOIN FETCH c.pets")
     List<ClienteEntity> findAllWithPets();

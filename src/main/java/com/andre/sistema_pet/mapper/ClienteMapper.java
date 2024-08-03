@@ -3,7 +3,9 @@ package com.andre.sistema_pet.mapper;
 import com.andre.sistema_pet.dto.ClienteRequest;
 import com.andre.sistema_pet.dto.ClienteResponse;
 import com.andre.sistema_pet.entity.ClienteEntity;
+import com.andre.sistema_pet.entity.PetEntity;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class ClienteMapper {
@@ -47,5 +49,21 @@ public class ClienteMapper {
         }
 
         return response;
+    }
+
+    public static ClienteRequest toRequest(ClienteEntity cliente) {
+        ClienteRequest request = new ClienteRequest();
+        request.setNome(cliente.getNome());
+        request.setNomeFantasia(cliente.getNomeFantasia());
+        request.setCep(cliente.getCep());
+        request.setTelefone(cliente.getTelefone());
+        request.setEmail(cliente.getEmail());
+        request.setCpfCnpj(cliente.getCpfCnpj());
+        request.setLogradouro(cliente.getLogradouro());
+        request.setNro(cliente.getNro());
+        request.setBairro(cliente.getBairro());
+        request.setLocalidade(cliente.getLocalidade());
+        request.setUf(cliente.getUf());
+        return request;
     }
 }

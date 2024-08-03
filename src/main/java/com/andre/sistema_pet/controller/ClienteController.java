@@ -2,6 +2,8 @@ package com.andre.sistema_pet.controller;
 
 import com.andre.sistema_pet.dto.ClienteRequest;
 import com.andre.sistema_pet.dto.ClienteResponse;
+import com.andre.sistema_pet.entity.ClienteEntity;
+import com.andre.sistema_pet.mapper.ClienteMapper;
 import com.andre.sistema_pet.service.ClienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/clientes")
@@ -41,5 +44,11 @@ public class ClienteController {
             @Valid @RequestBody ClienteRequest request) {
         ClienteResponse updatedCliente = clienteService.update(id, request);
         return ResponseEntity.ok(updatedCliente);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ClienteResponse>> searchByName(@RequestParam String nome) {
+        List<ClienteResponse> clientes = clienteService.findByName(nome);
+        return ResponseEntity.ok(clientes);
     }
 }
