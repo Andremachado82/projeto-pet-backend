@@ -7,14 +7,4 @@ public class RacaResponse {
 
     private Long id;
     private String nome;
-    private String especie;
-    private String sexo;
-    private String raca;
-    private String idade;
-    private String statusDeSaude;
-    private String ultimaVisitaVeterinaria;
-    private String dataNascimento;
-    private String nomeCliente;
-    private String observacoes;
-    private Long idCliente;
 }

@@ -1,11 +1,14 @@
 package com.andre.sistema_pet.service;
 
-import com.andre.sistema_pet.dto.ClienteRequest;
-import com.andre.sistema_pet.dto.ClienteResponse;
+import com.andre.sistema_pet.dto.*;
 import com.andre.sistema_pet.entity.ClienteEntity;
+import com.andre.sistema_pet.entity.EspecieEntity;
+import com.andre.sistema_pet.entity.RacaEntity;
 import com.andre.sistema_pet.exceptions.ResourceNotFoundException;
 import com.andre.sistema_pet.mapper.ClienteMapper;
 import com.andre.sistema_pet.repository.ClienteRepository;
+import com.andre.sistema_pet.repository.EspecieRepository;
+import com.andre.sistema_pet.repository.RacaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,47 +23,39 @@ import java.util.stream.Collectors;
 public class RacaOrEspecieService {
 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private RacaRepository racaRepository;
+
+    @Autowired
+    private EspecieRepository especieRepository;
 
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<ClienteResponse> findAll() {
-        return clienteRepository.findAllWithPets().stream()
-                .map(ClienteMapper::toResponse)
+    public List<RacaResponse> findAllRacas() {
+        return racaRepository.findAll().stream()
+                .map(raca -> modelMapper.map(raca, RacaResponse.class))
+                .collect(Collectors.toList());
+    }
+
+    public List<EspecieResponse> findAllEspecies() {
+        return especieRepository.findAll().stream()
+                .map(especie -> modelMapper.map(especie, EspecieResponse.class))
                 .collect(Collectors.toList());
     }
 
     @Transactional
-    public ClienteResponse create(ClienteRequest request) {
-        ClienteEntity cliente = ClienteMapper.toEntity(request);
-        cliente = clienteRepository.save(cliente);
+    public RacaResponse create(RacaRequest request) {
+        RacaEntity raca = modelMapper.map(request, RacaEntity.class);
+        raca = racaRepository.save(raca);
 
-        return ClienteMapper.toResponse(cliente);
-    }
-
-    public ClienteResponse getClienteById(Long id) {
-        ClienteEntity cliente = clienteRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
-        return modelMapper.map(cliente, ClienteResponse.class);
+        return modelMapper.map(raca, RacaResponse.class);
     }
 
     @Transactional
-    public ClienteResponse update(Long id, ClienteRequest request) {
-        ClienteEntity cliente = clienteRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado com id " + id));
+    public EspecieResponse create(EspecieRequest request) {
+        EspecieEntity especie = modelMapper.map(request, EspecieEntity.class);
+        especie = especieRepository.save(especie);
 
-        modelMapper.map(request, cliente);
-
-        cliente = clienteRepository.save(cliente);
-
-        return ClienteMapper.toResponse(cliente);
-    }
-
-    public List<ClienteResponse> findByName(String nome) {
-        List<ClienteEntity> clientes = clienteRepository.findByNomeContainingIgnoreCase(nome);
-        return clientes.stream()
-                .map(ClienteMapper::toResponse)
-                .collect(Collectors.toList());
+        return modelMapper.map(especie, EspecieResponse.class);
     }
 }
