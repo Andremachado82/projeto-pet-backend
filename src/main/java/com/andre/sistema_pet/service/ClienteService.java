@@ -70,4 +70,13 @@ public class ClienteService {
                 .map(ClienteMapper::toResponse)
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public void delete(Long id) {
+        if (clienteRepository.existsById(id)) {
+            clienteRepository.deleteById(id);
+        } else {
+            throw new ResourceNotFoundException("Cliente com ID " + id + " não encontrado.");
+        }
+    }
 }

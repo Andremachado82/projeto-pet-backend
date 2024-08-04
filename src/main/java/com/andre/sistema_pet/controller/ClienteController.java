@@ -57,4 +57,9 @@ public class ClienteController {
         List<ClienteResponse> clientes = clienteService.findByName(nome);
         return ResponseEntity.ok(clientes);
     }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        clienteService.delete(id);
+    }
 }

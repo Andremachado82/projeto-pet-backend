@@ -1,0 +1,32 @@
+meta {
+  name: Buscar por ID
+  type: http
+  seq: 12
+}
+
+get {
+  url: http://localhost:8080/api/clientes?pageIndex=0&pageSize=20
+  body: none
+  auth: none
+}
+
+params:query {
+  pageIndex: 0
+  pageSize: 20
+}
+
+body:json {
+  {
+    "nome": "Fernanda Costa",
+    "nomeFantasia": "Pet Love",
+    "cep": "34567-890",
+    "telefone": "31987654321",
+    "email": "fernanda.costa@example.com",
+    "cpfCnpj": "34567890112",
+    "logradouro": "Rua das Acácias",
+    "nro": "30",
+    "bairro": "Santa Tereza",
+    "cidade": "Belo Horizonte",
+    "estado": "MG"    
+  }
+}
