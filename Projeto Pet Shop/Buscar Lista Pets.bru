@@ -5,9 +5,14 @@ meta {
 }
 
 get {
-  url: http://localhost:8080/api/pets
+  url: http://localhost:8080/api/pets?pageIndex=0&pageSize=20
   body: none
   auth: none
+}
+
+params:query {
+  pageIndex: 0
+  pageSize: 20
 }
 
 body:json {

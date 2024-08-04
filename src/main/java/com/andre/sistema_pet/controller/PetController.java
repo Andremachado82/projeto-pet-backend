@@ -34,4 +34,12 @@ public class PetController {
         Page<PetResponse> pets = petService.findAll(pageRequest);
         return ResponseEntity.ok(pets);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PetResponse> updatePet(
+            @PathVariable Long id,
+            @Valid @RequestBody PetRequest request) {
+        PetResponse updatedCliente = petService.update(id, request);
+        return ResponseEntity.ok(updatedCliente);
+    }
 }

@@ -5,9 +5,14 @@ meta {
 }
 
 get {
-  url: http://localhost:8080/api/clientes
+  url: http://localhost:8080/api/clientes?pageIndex=0&pageSize=20
   body: none
   auth: none
+}
+
+params:query {
+  pageIndex: 0
+  pageSize: 20
 }
 
 body:json {

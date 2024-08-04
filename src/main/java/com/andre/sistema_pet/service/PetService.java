@@ -4,9 +4,11 @@ import com.andre.sistema_pet.dto.PetRequest;
 import com.andre.sistema_pet.dto.PetResponse;
 import com.andre.sistema_pet.entity.ClienteEntity;
 import com.andre.sistema_pet.entity.PetEntity;
+import com.andre.sistema_pet.exceptions.ResourceNotFoundException;
 import com.andre.sistema_pet.mapper.PetMapper;
 import com.andre.sistema_pet.repository.ClienteRepository;
 import com.andre.sistema_pet.repository.PetRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +23,10 @@ public class PetService {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
 
     public Page<PetResponse> findAll(PageRequest pageRequest) {
         Page<PetEntity> petsPage = petRepository.findAll(pageRequest);
@@ -38,4 +44,18 @@ public class PetService {
 
         return PetMapper.toResponse(pet);
     }
+
+    @Transactional
+    public PetResponse update(Long id, PetRequest request) {
+        PetEntity pet = petRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Pet não encontrado com id " + id));
+
+        modelMapper.map(request, pet);
+
+        pet = petRepository.save(pet);
+
+        return modelMapper.map(pet, PetResponse.class);
+    }
+
+
 }
