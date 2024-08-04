@@ -2,17 +2,19 @@ package com.andre.sistema_pet.controller;
 
 import com.andre.sistema_pet.dto.ClienteRequest;
 import com.andre.sistema_pet.dto.ClienteResponse;
-import com.andre.sistema_pet.entity.ClienteEntity;
-import com.andre.sistema_pet.mapper.ClienteMapper;
 import com.andre.sistema_pet.service.ClienteService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/clientes")
@@ -28,8 +30,12 @@ public class ClienteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ClienteResponse>> getAllClientes() {
-        List<ClienteResponse> clientes = clienteService.findAll();
+    public ResponseEntity<Page<ClienteResponse>> getAllClientes(
+            @RequestParam(defaultValue = "0") @PositiveOrZero int pageIndex,
+            @RequestParam(defaultValue = "20") @Positive @Max(100) int pageSize) {
+
+        PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
+        Page<ClienteResponse> clientes = clienteService.findAll(pageRequest);
         return ResponseEntity.ok(clientes);
     }
 
