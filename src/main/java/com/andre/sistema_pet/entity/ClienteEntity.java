@@ -2,29 +2,16 @@ package com.andre.sistema_pet.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name = "tb_cliente")
-public class ClienteEntity {
+public class ClienteEntity extends Pessoa {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nome;
-    private String nomeFantasia;
-    private String cep;
-    private String telefone;
-    private String email;
-    private String cpfCnpj;
-    private String logradouro;
-    private String nro;
-    private String bairro;
-    private String localidade;
-    private String uf;
-
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "cliente")
     private List<PetEntity> pets;
 }
