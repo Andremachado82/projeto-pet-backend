@@ -42,4 +42,9 @@ public class PetController {
         PetResponse updatedCliente = petService.update(id, request);
         return ResponseEntity.ok(updatedCliente);
     }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        petService.delete(id);
+    }
 }

@@ -57,5 +57,13 @@ public class PetService {
         return modelMapper.map(pet, PetResponse.class);
     }
 
+    @Transactional
+    public void delete(Long id) {
+        if (petRepository.existsById(id)) {
+            petRepository.deleteById(id);
+        } else {
+            throw new ResourceNotFoundException("Pet com ID " + id + " não encontrado.");
+        }
+    }
 
 }
