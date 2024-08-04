@@ -4,12 +4,15 @@ import com.andre.sistema_pet.dto.PetRequest;
 import com.andre.sistema_pet.dto.PetResponse;
 import com.andre.sistema_pet.service.PetService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/pets")
@@ -25,8 +28,10 @@ public class PetController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PetResponse>> getAllPets() {
-        List<PetResponse> pets = petService.findAll();
+    public ResponseEntity<Page<PetResponse>> getAllPets(@RequestParam(defaultValue = "0") @PositiveOrZero int pageIndex,
+                                                        @RequestParam(defaultValue = "20") @Positive @Max(100) int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
+        Page<PetResponse> pets = petService.findAll(pageRequest);
         return ResponseEntity.ok(pets);
     }
 }
