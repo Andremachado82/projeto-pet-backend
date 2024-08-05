@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "tb_fornecedor")
-public class Fornecedor extends Pessoa {
+public class FornecedorEntity extends Pessoa {
 
     private String inscricaoEstadual;
     private List<String> produtosServicosOferecidos;
