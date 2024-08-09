@@ -1,0 +1,25 @@
+meta {
+  name: Criar Atendimento
+  type: http
+  seq: 16
+}
+
+post {
+  url: http://localhost:8080/api/atendimentos
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "dataAtendimento": "2023-07-10",
+    "horaAtendimento": "10:45",
+    "tipoAtendimento": "Proced. Cirurgico",
+    "descricaoAtendimento": "Castração",
+    "status": "Cancelado",
+    "clienteId": 1,          // ID do cliente
+    "petId": 1,              // ID do pet
+    "valorAtendimento": 1000
+  }
+  
+}

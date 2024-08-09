@@ -14,4 +14,14 @@ public class ClienteEntity extends Pessoa {
 
     @OneToMany(mappedBy = "cliente")
     private List<PetEntity> pets;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<AtendimentoEntity> atendimentos;
+
+    public ClienteEntity() {
+    }
+
+    public ClienteEntity(Long id) {
+        this.setId(id);
+    }
 }

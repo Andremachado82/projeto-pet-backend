@@ -2,11 +2,8 @@ package com.andre.sistema_pet.service;
 
 import com.andre.sistema_pet.dto.FornecedorRequest;
 import com.andre.sistema_pet.dto.FornecedorResponse;
-import com.andre.sistema_pet.entity.ClienteEntity;
 import com.andre.sistema_pet.entity.FornecedorEntity;
 import com.andre.sistema_pet.exceptions.ResourceNotFoundException;
-import com.andre.sistema_pet.mapper.PetMapper;
-import com.andre.sistema_pet.repository.ClienteRepository;
 import com.andre.sistema_pet.repository.FornecedorRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

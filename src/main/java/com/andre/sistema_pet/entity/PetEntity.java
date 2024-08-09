@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 
+
 @Data
 @Entity
 @Table(name = "tb_pet")
@@ -26,4 +27,11 @@ public class PetEntity {
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private ClienteEntity cliente;
+
+    public PetEntity() {
+    }
+
+    public PetEntity(Long id) {
+        this.id = id;
+    }
 }

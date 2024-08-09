@@ -3,9 +3,7 @@ package com.andre.sistema_pet.mapper;
 import com.andre.sistema_pet.dto.ClienteRequest;
 import com.andre.sistema_pet.dto.ClienteResponse;
 import com.andre.sistema_pet.entity.ClienteEntity;
-import com.andre.sistema_pet.entity.PetEntity;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class ClienteMapper {

@@ -5,37 +5,27 @@ meta {
 }
 
 post {
-  url: http://localhost:8080/api/clientes
+  url: http://localhost:8080/api/fornecedores
   body: json
   auth: none
 }
 
 body:json {
   {
-    "nome": "Zernanda Costa",
-    "nomeFantasia": "Pet Love",
-    "cep": "34567890",
-    "telefone": "31987654321",
-    "email": "fernanda.costa@example.com",
-    "cpfCnpj": "34567890112",
-    "logradouro": "Rua das Acácias",
-    "nro": "30",
-    "bairro": "Santa Tereza",
-    "localidade": "Belo Horizonte",
-    "uf": "MG",
-    "pets": [
-      {
-        "nome": "Jujuba",
-        "especie": "Cadela",
-        "sexo": "fêmea",
-        "raca": "Labrador",
-        "idade": "2 anos",
-        "statusDeSaude": "Saudável",
-        "ultimaVisitaVeterinaria": "2023-01-15",
-        "dataNascimento": "2022-03-12",    
-        "observacoes": "Muito ativo",
-        "idCliente": 1
-      }
-    ]
+    "nome": "aornecedor A",
+    "cep": "12345678",
+    "telefone": "11987654321",
+    "email": "contato@fornecedora.com.br",
+    "cpfCnpj": "12345678000199",
+    "logradouro": "Rua A",
+    "nro": "123",
+    "bairro": "Bairro A",
+    "localidade": "Cidade A",
+    "uf": "SP",
+    "inscricaoEstadual": "123456789123",
+    "condicoesPagamento": "30 dias",
+    "prazoEntrega": "5 dias",
+    "limiteCredito": 50000
+    
   }
 }
