@@ -12,13 +12,13 @@ public class PetRequest {
     @NotEmpty(message = "Nome é obrigatório")
     private String nome;
 
-    @NotEmpty(message = "Espécie é obrigatório")
-    private String especie;
+    @NotNull(message = "Espécie é obrigatório")
+    private Long idEspecie;
 
     @NotEmpty(message = "Sexo é obrigatório")
     private String sexo;
 
-    private String raca;
+    private Long idRaca;
 
     private String idade;
 

@@ -15,9 +15,16 @@ public class PetEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private String especie;
+
+    @ManyToOne
+    @JoinColumn(name = "especie_id")
+    private EspecieEntity especie;
+
+    @ManyToOne
+    @JoinColumn(name = "raca_id")
+    private RacaEntity raca;
+
     private String sexo;
-    private String raca;
     private String idade;
     private String statusDeSaude;
     private LocalDate ultimaVisitaVeterinaria;
