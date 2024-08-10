@@ -1,0 +1,27 @@
+meta {
+  name: Deletar Vacina
+  type: http
+  seq: 20
+}
+
+delete {
+  url: http://localhost:8080/api/clientes/1
+  body: none
+  auth: none
+}
+
+body:json {
+  {
+    "nome": "Fernanda Costa",
+    "nomeFantasia": "Pet Love",
+    "cep": "34567-890",
+    "telefone": "31987654321",
+    "email": "fernanda.costa@example.com",
+    "cpfCnpj": "34567890112",
+    "logradouro": "Rua das Acácias",
+    "nro": "30",
+    "bairro": "Santa Tereza",
+    "cidade": "Belo Horizonte",
+    "estado": "MG"    
+  }
+}
