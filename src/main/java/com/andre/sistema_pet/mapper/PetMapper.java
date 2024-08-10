@@ -16,8 +16,8 @@ public class PetMapper {
     public static PetEntity toEntity(PetRequest request, ClienteEntity cliente, EspecieEntity especie, RacaEntity raca) {
         PetEntity pet = new PetEntity();
         pet.setNome(request.getNome());
-        pet.setEspecie(especie);  // Associe a entidade Especie
-        pet.setRaca(raca);        // Associe a entidade Raca
+        pet.setEspecie(especie);
+        pet.setRaca(raca);
         pet.setSexo(request.getSexo());
         pet.setIdade(request.getIdade());
         pet.setStatusDeSaude(request.getStatusDeSaude());

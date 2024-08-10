@@ -8,6 +8,7 @@ import com.andre.sistema_pet.mapper.ClienteMapper;
 import com.andre.sistema_pet.repository.ClienteRepository;
 import com.andre.sistema_pet.repository.PetRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -57,7 +58,7 @@ public class ClienteService {
         ClienteEntity cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado com id " + id));
 
-        modelMapper.map(request, cliente);
+        BeanUtils.copyProperties(request, cliente);
 
         cliente = clienteRepository.save(cliente);
 

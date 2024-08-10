@@ -6,6 +6,7 @@ import com.andre.sistema_pet.entity.VacinaEntity;
 import com.andre.sistema_pet.exceptions.ResourceNotFoundException;
 import com.andre.sistema_pet.repository.VacinaRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,7 +42,7 @@ public class VacinaService {
         VacinaEntity vacina = vacinaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Vacina não encontrada com id " + id));
 
-        modelMapper.map(request, vacina);
+        BeanUtils.copyProperties(request, vacina);
 
         vacina = vacinaRepository.save(vacina);
 

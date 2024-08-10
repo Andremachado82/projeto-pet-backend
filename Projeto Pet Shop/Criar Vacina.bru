@@ -5,22 +5,17 @@ meta {
 }
 
 post {
-  url: http://localhost:8080/api/pets
+  url: http://localhost:8080/api/vacinas
   body: json
   auth: none
 }
 
 body:json {
-  {
-    "nome": "Jujuba atualizado",
-    "especie": "Cadela",
-    "sexo": "fêmea",
-    "raca": "Labrador",
-    "idade": "2 anos",
-    "statusDeSaude": "Saudável",
-    "ultimaVisitaVeterinaria": "2023-01-15",
-    "dataNascimento": "2022-03-12",    
-    "observacoes": "Muito ativo",
-    "idCliente": 1
+  {  
+    "nome": "Vacina Anti-Rábica atualizada",
+    "tipo": "Vacina Monovalente",
+    "lote": "54321",
+    "fabricante": "Laboratório DEF",
+    "dataValidade": "2024-12-31"
   }
 }

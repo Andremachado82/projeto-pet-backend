@@ -13,11 +13,17 @@ import com.andre.sistema_pet.repository.EspecieRepository;
 import com.andre.sistema_pet.repository.PetRepository;
 import com.andre.sistema_pet.repository.RacaRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PetService {
@@ -74,12 +80,29 @@ public class PetService {
         PetEntity pet = petRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Pet não encontrado com id " + id));
 
-        modelMapper.map(request, pet);
+        // Atualizar a entidade Pet com os dados do DTO
+        BeanUtils.copyProperties(request, pet, getNullPropertyNames(request));
 
+        // Salvar a entidade atualizada no banco de dados
         pet = petRepository.save(pet);
 
+        // Retornar o Pet atualizado como PetResponse
         return modelMapper.map(pet, PetResponse.class);
     }
+
+    private String[] getNullPropertyNames(Object source) {
+        final BeanWrapper src = new BeanWrapperImpl(source);
+        java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
+
+        List<String> nullPropertyNames = new ArrayList<>();
+        for (java.beans.PropertyDescriptor pd : pds) {
+            if (src.getPropertyValue(pd.getName()) == null) {
+                nullPropertyNames.add(pd.getName());
+            }
+        }
+        return nullPropertyNames.toArray(new String[0]);
+    }
+
 
     @Transactional
     public void delete(Long id) {

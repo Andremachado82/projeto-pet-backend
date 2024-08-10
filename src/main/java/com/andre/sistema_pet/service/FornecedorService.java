@@ -6,6 +6,7 @@ import com.andre.sistema_pet.entity.FornecedorEntity;
 import com.andre.sistema_pet.exceptions.ResourceNotFoundException;
 import com.andre.sistema_pet.repository.FornecedorRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -41,7 +42,7 @@ public class FornecedorService {
         FornecedorEntity fornecedor = fornecedorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Fornecedor não encontrado com id " + id));
 
-        modelMapper.map(request, fornecedor);
+        BeanUtils.copyProperties(request, fornecedor);
 
         fornecedor = fornecedorRepository.save(fornecedor);
 

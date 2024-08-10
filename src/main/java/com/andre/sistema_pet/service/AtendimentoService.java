@@ -10,6 +10,7 @@ import com.andre.sistema_pet.mapper.AtendimentoMapper;
 import com.andre.sistema_pet.repository.AtendimentoRepository;
 import com.andre.sistema_pet.repository.ClienteRepository;
 import com.andre.sistema_pet.repository.PetRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,26 +57,11 @@ public class AtendimentoService {
     }
 
     public AtendimentoResponse updateAtendimento(Long id, AtendimentoRequest request) {
-        if (atendimentoRepository.existsById(id)) {
-            AtendimentoEntity atendimentoEntity = atendimentoRepository.findById(id).orElse(null);
-            if (atendimentoEntity != null) {
-                // Obter cliente e pet do banco de dados
-                ClienteEntity cliente = clienteRepository.findById(request.getClienteId()).orElse(null);
-                PetEntity pet = petRepository.findById(request.getPetId()).orElse(null);
+            AtendimentoEntity atendimentoEntity = atendimentoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Atendimento não encontrado com id " + id));
+        BeanUtils.copyProperties(request, atendimentoEntity);
 
-                if (cliente != null && pet != null) {
-                    // Atualizar o atendimento com os dados do request
-                    AtendimentoEntity updatedAtendimento = AtendimentoMapper.toEntity(request, cliente, pet);
-                    updatedAtendimento.setId(id); // Manter o ID do atendimento existente
+        atendimentoEntity = atendimentoRepository.save(atendimentoEntity);
 
-                    // Salvar o atendimento atualizado
-                    AtendimentoEntity savedAtendimento = atendimentoRepository.save(updatedAtendimento);
-
-                    // Retornar a resposta com o atendimento atualizado
-                    return AtendimentoMapper.toResponse(savedAtendimento);
-                }
-            }
-        }
-        return null;
+        return AtendimentoMapper.toResponse(atendimentoEntity);
     }
 }
