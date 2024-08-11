@@ -8,8 +8,9 @@ import java.util.List;
 @Data
 public class FornecedorResponse {
 
-    private Long id; // Supondo que você tenha um ID para identificar o fornecedor
+    private Long id;
     private String nome;
+    private String nomeFantasia;
     private String cep;
     private String telefone;
     private String email;
@@ -21,8 +22,8 @@ public class FornecedorResponse {
     private String uf;
     private String inscricaoEstadual;
     private List<String> produtosServicosOferecidos;
-    private String condicoesPagamento;
-    private String prazoEntrega;
-    private double limiteCredito;
-    private InformacoesBancarias informacoesBancarias;
+//    private String condicoesPagamento;
+//    private String prazoEntrega;
+//    private double limiteCredito;
+//    private InformacoesBancarias informacoesBancarias;
 }

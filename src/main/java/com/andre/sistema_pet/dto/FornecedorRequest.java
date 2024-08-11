@@ -1,6 +1,5 @@
 package com.andre.sistema_pet.dto;
 
-import com.andre.sistema_pet.entity.InformacoesBancarias;
 import lombok.Data;
 
 import java.util.List;
@@ -9,6 +8,7 @@ import java.util.List;
 public class FornecedorRequest {
 
     private String nome;
+    private String nomeFantasia;
     private String cep;
     private String telefone;
     private String email;
@@ -20,8 +20,4 @@ public class FornecedorRequest {
     private String uf;
     private String inscricaoEstadual;
     private List<String> produtosServicosOferecidos;
-    private String condicoesPagamento;
-    private String prazoEntrega;
-    private double limiteCredito;
-    private InformacoesBancarias informacoesBancarias; // Pode ser nulo
 }
