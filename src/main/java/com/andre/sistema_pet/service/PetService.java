@@ -80,8 +80,17 @@ public class PetService {
         PetEntity pet = petRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Pet não encontrado com id " + id));
 
-        // Atualizar a entidade Pet com os dados do DTO
+        // Atualizar dados básicos
         BeanUtils.copyProperties(request, pet, getNullPropertyNames(request));
+
+        // Atualizar entidades relacionadas
+        EspecieEntity especie = especieRepository.findById(request.getIdEspecie())
+                .orElseThrow(() -> new ResourceNotFoundException("Espécie não encontrada com id " + request.getIdEspecie()));
+        RacaEntity raca = racaRepository.findById(request.getIdRaca())
+                .orElseThrow(() -> new ResourceNotFoundException("Raça não encontrada com id " + request.getIdRaca()));
+
+        pet.setEspecie(especie);
+        pet.setRaca(raca);
 
         // Salvar a entidade atualizada no banco de dados
         pet = petRepository.save(pet);
@@ -89,6 +98,7 @@ public class PetService {
         // Retornar o Pet atualizado como PetResponse
         return modelMapper.map(pet, PetResponse.class);
     }
+
 
     private String[] getNullPropertyNames(Object source) {
         final BeanWrapper src = new BeanWrapperImpl(source);

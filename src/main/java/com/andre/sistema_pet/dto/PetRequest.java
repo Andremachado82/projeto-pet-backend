@@ -18,6 +18,7 @@ public class PetRequest {
     @NotEmpty(message = "Sexo é obrigatório")
     private String sexo;
 
+    @NotNull(message = "Raça é obrigatório")
     private Long idRaca;
 
     private String idade;
