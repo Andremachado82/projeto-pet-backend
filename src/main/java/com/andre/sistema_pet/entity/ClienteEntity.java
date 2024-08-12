@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
@@ -17,6 +18,12 @@ public class ClienteEntity extends Pessoa {
 
     @OneToMany(mappedBy = "cliente")
     private List<AtendimentoEntity> atendimentos;
+
+    @Column(name = "ativo")
+    private Boolean ativo = true;
+
+    @Column(name = "versao")
+    private LocalDateTime dataCriacao;
 
     public ClienteEntity() {
     }

@@ -20,4 +20,5 @@ public class ClienteResponse {
     private String localidade;
     private String uf;
     private List<PetResponse> pets;
+    private Boolean ativo;
 }
