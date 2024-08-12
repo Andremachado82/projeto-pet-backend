@@ -40,4 +40,7 @@ public class AtendimentoEntity {
 
     @Column(name = "valor_atendimento")
     private Double valorAtendimento;
+
+    @Column(name = "ativo")
+    private Boolean ativo = true;
 }

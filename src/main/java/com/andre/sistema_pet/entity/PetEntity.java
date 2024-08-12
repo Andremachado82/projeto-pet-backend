@@ -35,6 +35,9 @@ public class PetEntity {
     @JoinColumn(name = "cliente_id")
     private ClienteEntity cliente;
 
+    @Column(name = "ativo")
+    private Boolean ativo = true;
+
     public PetEntity() {
     }
 

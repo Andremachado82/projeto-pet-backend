@@ -2,9 +2,12 @@ package com.andre.sistema_pet.service;
 
 import com.andre.sistema_pet.dto.ClienteRequest;
 import com.andre.sistema_pet.dto.ClienteResponse;
+import com.andre.sistema_pet.entity.AtendimentoEntity;
 import com.andre.sistema_pet.entity.ClienteEntity;
+import com.andre.sistema_pet.entity.PetEntity;
 import com.andre.sistema_pet.exceptions.ResourceNotFoundException;
 import com.andre.sistema_pet.mapper.ClienteMapper;
+import com.andre.sistema_pet.repository.AtendimentoRepository;
 import com.andre.sistema_pet.repository.ClienteRepository;
 import com.andre.sistema_pet.repository.PetRepository;
 import org.modelmapper.ModelMapper;
@@ -18,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,6 +32,9 @@ public class ClienteService {
 
     @Autowired
     private PetRepository petRepository;
+
+    @Autowired
+    private AtendimentoRepository atendimentoRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -72,12 +79,37 @@ public class ClienteService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional
-    public void delete(Long id) {
-        if (clienteRepository.existsById(id)) {
-            clienteRepository.deleteById(id);
-        } else {
-            throw new ResourceNotFoundException("Cliente com ID " + id + " não encontrado.");
+//    @Transactional
+//    public void delete(Long id) {
+//        if (clienteRepository.existsById(id)) {
+//            clienteRepository.deleteById(id);
+//        } else {
+//            throw new ResourceNotFoundException("Cliente com ID " + id + " não encontrado.");
+//        }
+//    }
+
+    public boolean inativarCliente(Long id) {
+        Optional<ClienteEntity> clienteOptional = clienteRepository.findById(id);
+        if (clienteOptional.isPresent()) {
+            ClienteEntity cliente = clienteOptional.get();
+
+            // Inativar todos os pets associados
+            for (PetEntity pet : cliente.getPets()) {
+                pet.setAtivo(false);
+                petRepository.save(pet);
+            }
+
+            // Inativar todos os atendimentos associados
+            for (AtendimentoEntity atendimento : cliente.getAtendimentos()) {
+                atendimento.setAtivo(false);
+                atendimentoRepository.save(atendimento);
+            }
+            cliente.setAtivo(false);
+
+            clienteRepository.save(cliente);
+
+            return true;
         }
+        return false;
     }
 }

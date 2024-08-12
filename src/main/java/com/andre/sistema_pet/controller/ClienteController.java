@@ -58,8 +58,20 @@ public class ClienteController {
         return ResponseEntity.ok(clientes);
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        clienteService.delete(id);
+//    @DeleteMapping("/{id}")
+//    public void delete(@PathVariable Long id) {
+//        clienteService.delete(id);
+//    }
+
+    @PutMapping("/{id}/inativar")
+    public ResponseEntity<Void> inativarCliente(@PathVariable Long id) {
+        boolean resultado = clienteService.inativarCliente(id);
+
+        if (resultado) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
+
 }
