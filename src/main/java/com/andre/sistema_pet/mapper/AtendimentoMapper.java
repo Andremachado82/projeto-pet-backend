@@ -18,6 +18,7 @@ public class AtendimentoMapper {
         atendimento.setCliente(cliente);
         atendimento.setPet(pet);
         atendimento.setValorAtendimento(request.getValorAtendimento());
+        atendimento.setAtivo(request.getAtivo());
         return atendimento;
     }
 
@@ -30,6 +31,7 @@ public class AtendimentoMapper {
         response.setDescricaoAtendimento(entity.getDescricaoAtendimento());
         response.setStatus(entity.getStatus());
         response.setValorAtendimento(entity.getValorAtendimento());
+        response.setAtivo(entity.getAtivo());
 
         // Mapear cliente e pet para a resposta
         if (entity.getCliente() != null) {

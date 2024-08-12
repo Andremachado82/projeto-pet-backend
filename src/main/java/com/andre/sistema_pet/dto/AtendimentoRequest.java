@@ -17,4 +17,5 @@ public class AtendimentoRequest {
     private Long petId;
     private Double valorAtendimento;
     private String metodoPagamento;
+    private Boolean ativo;
 }

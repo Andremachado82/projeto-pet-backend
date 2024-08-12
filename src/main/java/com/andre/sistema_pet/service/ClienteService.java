@@ -49,6 +49,7 @@ public class ClienteService {
     @Transactional
     public ClienteResponse create(ClienteRequest request) {
         ClienteEntity cliente = ClienteMapper.toEntity(request);
+        cliente.setAtivo(true);
         cliente = clienteRepository.save(cliente);
 
         return ClienteMapper.toResponse(cliente);

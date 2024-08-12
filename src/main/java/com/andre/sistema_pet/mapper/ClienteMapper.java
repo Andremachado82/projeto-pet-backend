@@ -21,6 +21,7 @@ public class ClienteMapper {
         cliente.setBairro(request.getBairro());
         cliente.setLocalidade(request.getLocalidade());
         cliente.setUf(request.getUf());
+        cliente.setAtivo(request.getAtivo());
         return cliente;
     }
 
@@ -38,6 +39,7 @@ public class ClienteMapper {
         response.setBairro(cliente.getBairro());
         response.setLocalidade(cliente.getLocalidade());
         response.setUf(cliente.getUf());
+        response.setAtivo(cliente.getAtivo());
 
         // Adiciona os pets à resposta
         if (cliente.getPets() != null) {
@@ -62,6 +64,7 @@ public class ClienteMapper {
         request.setBairro(cliente.getBairro());
         request.setLocalidade(cliente.getLocalidade());
         request.setUf(cliente.getUf());
+        request.setAtivo(cliente.getAtivo() == null || cliente.getAtivo());
         return request;
     }
 }

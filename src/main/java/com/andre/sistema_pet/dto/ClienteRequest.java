@@ -36,4 +36,6 @@ public class ClienteRequest {
 
     @NotEmpty(message = "Estado é obrigatório")
     private String uf;
+
+    private Boolean ativo;
 }

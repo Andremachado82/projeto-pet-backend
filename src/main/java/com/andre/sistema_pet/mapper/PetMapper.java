@@ -38,6 +38,7 @@ public class PetMapper {
         response.setIdade(entity.getIdade());
         response.setStatusDeSaude(entity.getStatusDeSaude());
         response.setObservacoes(entity.getObservacoes());
+        response.setAtivo(entity.getAtivo());
         if (entity.getUltimaVisitaVeterinaria() != null) {
             response.setUltimaVisitaVeterinaria(entity.getUltimaVisitaVeterinaria().format(formatter));
         }
@@ -60,6 +61,7 @@ public class PetMapper {
         request.setUltimaVisitaVeterinaria(entity.getUltimaVisitaVeterinaria());
         request.setDataNascimento(entity.getDataNascimento());
         request.setObservacoes(entity.getObservacoes());
+        request.setAtivo(entity.getAtivo());
         return request;
     }
 }

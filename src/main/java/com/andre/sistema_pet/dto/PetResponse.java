@@ -17,4 +17,5 @@ public class PetResponse {
     private String nomeCliente;
     private String observacoes;
     private Long idCliente;
+    private Boolean ativo;
 }

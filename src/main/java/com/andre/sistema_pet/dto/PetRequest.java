@@ -33,4 +33,6 @@ public class PetRequest {
 
     @NotNull(message = "IdCliente é obrigatório")
     private Long idCliente;
+
+    private Boolean ativo;
 }

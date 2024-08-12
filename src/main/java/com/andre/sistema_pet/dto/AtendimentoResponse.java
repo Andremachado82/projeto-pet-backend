@@ -17,4 +17,5 @@ public class AtendimentoResponse {
     private ClienteResponse cliente;
     private PetResponse pet;
     private Double valorAtendimento;
+    private Boolean ativo;
 }
