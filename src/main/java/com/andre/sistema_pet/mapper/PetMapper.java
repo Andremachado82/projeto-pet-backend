@@ -45,8 +45,10 @@ public class PetMapper {
         if (entity.getDataNascimento() != null) {
             response.setDataNascimento(entity.getDataNascimento().format(formatter));
         }
-        response.setNomeCliente(entity.getCliente().getNome());
-        response.setIdCliente(entity.getCliente().getId());
+        if (entity.getCliente() != null) {
+            response.setNomeCliente(entity.getCliente().getNome());
+            response.setIdCliente(entity.getCliente().getId());
+        }
         return response;
     }
 

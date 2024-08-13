@@ -52,8 +52,11 @@ public class PetService {
     @Transactional
     public PetResponse create(PetRequest request) {
         // Buscar o cliente
-        ClienteEntity cliente = clienteRepository.findById(request.getIdCliente())
-                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
+        ClienteEntity cliente = null;
+        if (request.getIdCliente() != null) {
+            cliente = clienteRepository.findById(request.getIdCliente())
+                    .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
+        }
 
         // Buscar a espécie
         EspecieEntity especie = especieRepository.findById(request.getIdEspecie())

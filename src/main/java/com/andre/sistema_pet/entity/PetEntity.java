@@ -32,7 +32,7 @@ public class PetEntity {
     private String observacoes;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "cliente_id", nullable = true)
     private ClienteEntity cliente;
 
     @Column(name = "ativo")

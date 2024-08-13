@@ -95,16 +95,16 @@ public class ClienteService {
             ClienteEntity cliente = clienteOptional.get();
 
             // Inativar todos os pets associados
-            for (PetEntity pet : cliente.getPets()) {
-                pet.setAtivo(false);
-                petRepository.save(pet);
-            }
+//            for (PetEntity pet : cliente.getPets()) {
+//                pet.setAtivo(false);
+//                petRepository.save(pet);
+//            }
 
             // Inativar todos os atendimentos associados
-            for (AtendimentoEntity atendimento : cliente.getAtendimentos()) {
-                atendimento.setAtivo(false);
-                atendimentoRepository.save(atendimento);
-            }
+//            for (AtendimentoEntity atendimento : cliente.getAtendimentos()) {
+//                atendimento.setAtivo(false);
+//                atendimentoRepository.save(atendimento);
+//            }
             cliente.setAtivo(false);
 
             clienteRepository.save(cliente);
