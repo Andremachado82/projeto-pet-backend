@@ -82,6 +82,11 @@ public class PetService {
     public PetResponse update(Long id, PetRequest request) {
         PetEntity pet = petRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Pet não encontrado com id " + id));
+        if (null != request.getIdCliente()) {
+            ClienteEntity cliente = clienteRepository.findById(request.getIdCliente())
+                    .orElse(null);
+            pet.setCliente(cliente);
+        }
 
         // Atualizar dados básicos
         BeanUtils.copyProperties(request, pet, getNullPropertyNames(request));
