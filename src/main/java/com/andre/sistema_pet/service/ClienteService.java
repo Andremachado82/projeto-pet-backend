@@ -89,23 +89,11 @@ public class ClienteService {
 //        }
 //    }
 
-    public boolean inativarCliente(Long id) {
-        Optional<ClienteEntity> clienteOptional = clienteRepository.findById(id);
+    public boolean alterarSituacaoCliente(Long clienteId, ClienteRequest clienteRequest) {
+        Optional<ClienteEntity> clienteOptional = clienteRepository.findById(clienteId);
         if (clienteOptional.isPresent()) {
             ClienteEntity cliente = clienteOptional.get();
-
-            // Inativar todos os pets associados
-//            for (PetEntity pet : cliente.getPets()) {
-//                pet.setAtivo(false);
-//                petRepository.save(pet);
-//            }
-
-            // Inativar todos os atendimentos associados
-//            for (AtendimentoEntity atendimento : cliente.getAtendimentos()) {
-//                atendimento.setAtivo(false);
-//                atendimentoRepository.save(atendimento);
-//            }
-            cliente.setAtivo(false);
+            cliente.setAtivo(!clienteRequest.getAtivo());
 
             clienteRepository.save(cliente);
 

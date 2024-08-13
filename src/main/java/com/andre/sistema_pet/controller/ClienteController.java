@@ -63,9 +63,12 @@ public class ClienteController {
 //        clienteService.delete(id);
 //    }
 
-    @PutMapping("/{id}/inativar")
-    public ResponseEntity<Void> inativarCliente(@PathVariable Long id) {
-        boolean resultado = clienteService.inativarCliente(id);
+    @PutMapping("/{clienteId}/alterar-situacao")
+    public ResponseEntity<Void> alterarSituacaoCliente(
+            @PathVariable Long clienteId,
+            @RequestBody ClienteRequest clienteRequest) {
+
+        boolean resultado = clienteService.alterarSituacaoCliente(clienteId, clienteRequest);
 
         if (resultado) {
             return ResponseEntity.noContent().build();
@@ -73,5 +76,6 @@ public class ClienteController {
             return ResponseEntity.notFound().build();
         }
     }
+
 
 }
