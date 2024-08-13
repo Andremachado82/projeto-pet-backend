@@ -1,5 +1,6 @@
 package com.andre.sistema_pet.controller;
 
+import com.andre.sistema_pet.dto.ClienteRequest;
 import com.andre.sistema_pet.dto.PetRequest;
 import com.andre.sistema_pet.dto.PetResponse;
 import com.andre.sistema_pet.service.PetService;
@@ -43,8 +44,22 @@ public class PetController {
         return ResponseEntity.ok(updatedCliente);
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        petService.delete(id);
+    //    @DeleteMapping("/{id}")
+//    public void delete(@PathVariable Long id) {
+//        petService.delete(id);
+//    }
+    @PutMapping("/{petId}/alterar-situacao")
+    public ResponseEntity<Void> alterarSituacaoCliente(
+            @PathVariable Long petId,
+            @RequestBody PetRequest petRequest) {
+
+        boolean resultado = petService.alterarSituacaoCliente(petId, petRequest);
+
+        if (resultado) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
+
 }

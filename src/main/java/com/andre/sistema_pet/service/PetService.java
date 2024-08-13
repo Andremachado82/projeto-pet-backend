@@ -1,5 +1,6 @@
 package com.andre.sistema_pet.service;
 
+import com.andre.sistema_pet.dto.ClienteRequest;
 import com.andre.sistema_pet.dto.PetRequest;
 import com.andre.sistema_pet.dto.PetResponse;
 import com.andre.sistema_pet.entity.ClienteEntity;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PetService {
@@ -122,13 +124,26 @@ public class PetService {
     }
 
 
-    @Transactional
-    public void delete(Long id) {
-        if (petRepository.existsById(id)) {
-            petRepository.deleteById(id);
-        } else {
-            throw new ResourceNotFoundException("Pet com ID " + id + " não encontrado.");
+    //    @Transactional
+//    public void delete(Long id) {
+//        if (petRepository.existsById(id)) {
+//            petRepository.deleteById(id);
+//        } else {
+//            throw new ResourceNotFoundException("Pet com ID " + id + " não encontrado.");
+//        }
+//    }
+    public boolean alterarSituacaoCliente(Long petId, PetRequest petRequest) {
+        Optional<PetEntity> petEntityOptional = petRepository.findById(petId);
+        if (petEntityOptional.isPresent()) {
+            PetEntity pet = petEntityOptional.get();
+            pet.setAtivo(!petRequest.getAtivo());
+
+            petRepository.save(pet);
+
+            return true;
         }
+        return false;
     }
+
 
 }

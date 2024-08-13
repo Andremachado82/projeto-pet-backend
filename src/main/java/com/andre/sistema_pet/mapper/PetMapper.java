@@ -24,6 +24,7 @@ public class PetMapper {
         pet.setUltimaVisitaVeterinaria(request.getUltimaVisitaVeterinaria());
         pet.setDataNascimento(request.getDataNascimento());
         pet.setObservacoes(request.getObservacoes());
+        pet.setAtivo(request.getAtivo());
         pet.setCliente(cliente);
         return pet;
     }
