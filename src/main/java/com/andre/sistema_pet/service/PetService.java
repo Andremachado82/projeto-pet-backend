@@ -1,6 +1,5 @@
 package com.andre.sistema_pet.service;
 
-import com.andre.sistema_pet.dto.ClienteRequest;
 import com.andre.sistema_pet.dto.PetRequest;
 import com.andre.sistema_pet.dto.PetResponse;
 import com.andre.sistema_pet.entity.ClienteEntity;
