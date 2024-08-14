@@ -131,7 +131,7 @@ public class PetService {
 //            throw new ResourceNotFoundException("Pet com ID " + id + " não encontrado.");
 //        }
 //    }
-    public boolean alterarSituacaoCliente(Long petId, PetRequest petRequest) {
+    public boolean alterarSituacaoPet(Long petId, PetRequest petRequest) {
         Optional<PetEntity> petEntityOptional = petRepository.findById(petId);
         if (petEntityOptional.isPresent()) {
             PetEntity pet = petEntityOptional.get();

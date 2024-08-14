@@ -1,5 +1,6 @@
 package com.andre.sistema_pet.controller;
 
+import com.andre.sistema_pet.dto.PetRequest;
 import com.andre.sistema_pet.dto.VacinaRequest;
 import com.andre.sistema_pet.dto.VacinaResponse;
 import com.andre.sistema_pet.service.VacinaService;
@@ -43,8 +44,22 @@ public class VacinaController {
         return ResponseEntity.ok(updatedVacina);
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        vacinaService.delete(id);
+//    @DeleteMapping("/{id}")
+//    public void delete(@PathVariable Long id) {
+//        vacinaService.delete(id);
+//    }
+
+    @PutMapping("/{id}/alterar-situacao")
+    public ResponseEntity<Void> alterarSituacaoVacina(
+            @PathVariable Long id,
+            @RequestBody VacinaRequest request) {
+
+        boolean resultado = vacinaService.alterarSituacaoVacina(id, request);
+
+        if (resultado) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

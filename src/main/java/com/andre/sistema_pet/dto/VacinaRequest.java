@@ -23,4 +23,6 @@ public class VacinaRequest {
 
     @NotNull(message = "Data validade é obrigatório")
     private LocalDate dataValidade;
+
+    private Boolean ativo;
 }

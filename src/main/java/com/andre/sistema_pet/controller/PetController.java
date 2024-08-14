@@ -49,11 +49,11 @@ public class PetController {
 //        petService.delete(id);
 //    }
     @PutMapping("/{petId}/alterar-situacao")
-    public ResponseEntity<Void> alterarSituacaoCliente(
+    public ResponseEntity<Void> alterarSituacaoPet(
             @PathVariable Long petId,
             @RequestBody PetRequest petRequest) {
 
-        boolean resultado = petService.alterarSituacaoCliente(petId, petRequest);
+        boolean resultado = petService.alterarSituacaoPet(petId, petRequest);
 
         if (resultado) {
             return ResponseEntity.noContent().build();

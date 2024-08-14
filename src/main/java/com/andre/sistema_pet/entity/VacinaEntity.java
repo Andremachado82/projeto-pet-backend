@@ -19,4 +19,7 @@ public class VacinaEntity {
     private String fabricante;
     private String lote;
     private LocalDate dataValidade;
+
+    @Column(name = "ativo")
+    private Boolean ativo = true;
 }

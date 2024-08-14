@@ -13,4 +13,5 @@ public class VacinaResponse {
     private String fabricante;
     private String lote;
     private LocalDate dataValidade;
+    private Boolean ativo;
 }
