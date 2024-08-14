@@ -6,5 +6,6 @@ import lombok.Data;
 public class EspecieResponse {
 
     private Long id;
-    private String nome;
+    private String nomeEspecie;
+    private Boolean ativo;
 }

@@ -6,5 +6,6 @@ import lombok.Data;
 public class RacaResponse {
 
     private Long id;
-    private String nome;
+    private String nomeRaca;
+    private Boolean ativo;
 }

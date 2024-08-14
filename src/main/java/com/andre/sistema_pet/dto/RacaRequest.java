@@ -7,5 +7,6 @@ import lombok.Data;
 public class RacaRequest {
 
     @NotEmpty(message = "Nome é obrigatório")
-    private String nome;
+    private String nomeRaca;
+    private Boolean ativo;
 }

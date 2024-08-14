@@ -11,5 +11,8 @@ public class RacaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
+    private String nomeRaca;
+
+    @Column(name = "ativo")
+    private Boolean ativo = true;
 }

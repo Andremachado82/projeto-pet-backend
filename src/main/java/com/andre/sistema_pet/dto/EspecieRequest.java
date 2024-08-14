@@ -7,5 +7,6 @@ import lombok.Data;
 public class EspecieRequest {
 
     @NotEmpty(message = "Nome é obrigatório")
-    private String nome;
+    private String nomeEspecie;
+    private Boolean ativo;
 }

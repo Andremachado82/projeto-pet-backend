@@ -33,9 +33,9 @@ public class PetMapper {
         PetResponse response = new PetResponse();
         response.setId(entity.getId());
         response.setNome(entity.getNome());
-        response.setEspecie(entity.getEspecie().getNome()); // Use nome ou ID, dependendo da necessidade
+        response.setEspecie(entity.getEspecie().getNomeEspecie()); // Use nome ou ID, dependendo da necessidade
         response.setSexo(entity.getSexo());
-        response.setRaca(entity.getRaca().getNome()); // Use nome ou ID, dependendo da necessidade
+        response.setRaca(entity.getRaca().getNomeRaca()); // Use nome ou ID, dependendo da necessidade
         response.setIdade(entity.getIdade());
         response.setStatusDeSaude(entity.getStatusDeSaude());
         response.setObservacoes(entity.getObservacoes());
