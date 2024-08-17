@@ -12,6 +12,9 @@ import com.andre.sistema_pet.repository.ClienteRepository;
 import com.andre.sistema_pet.repository.PetRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -50,12 +53,13 @@ public class AtendimentoService {
         return AtendimentoMapper.toResponse(atendimentoEntity);
     }
 
-    public List<AtendimentoResponse> getAllAtendimentos() {
-        List<AtendimentoEntity> atendimentoEntities = atendimentoRepository.findAll();
-        return atendimentoEntities.stream()
-                .map(AtendimentoMapper::toResponse)
-                .collect(Collectors.toList());
+    public Page<AtendimentoResponse> getAtendimentos(int pageIndex, int pageSize) {
+        Pageable pageable = PageRequest.of(pageIndex, pageSize);
+        Page<AtendimentoEntity> atendimentoPage =  atendimentoRepository.findAll(pageable);
+
+        return atendimentoPage.map(AtendimentoMapper::toResponse);
     }
+
 
     public List<AtendimentoResponse> getAgendamentosPorData(LocalDate data) {
         List<AtendimentoEntity> atendimentos = atendimentoRepository.findByDataAtendimento(data);

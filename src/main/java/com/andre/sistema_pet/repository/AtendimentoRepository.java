@@ -1,6 +1,8 @@
 package com.andre.sistema_pet.repository;
 
 import com.andre.sistema_pet.entity.AtendimentoEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
@@ -10,4 +12,6 @@ public interface AtendimentoRepository extends JpaRepository<AtendimentoEntity, 
     List<AtendimentoEntity> findByDataAtendimento(LocalDate dataAtendimento);
 
     List<AtendimentoEntity> findByDataAtendimentoBetween(LocalDate dataInicio, LocalDate dataFim);
+
+    Page<AtendimentoEntity> findAll(Pageable pageable);
 }

@@ -4,6 +4,7 @@ import com.andre.sistema_pet.dto.AtendimentoRequest;
 import com.andre.sistema_pet.dto.AtendimentoResponse;
 import com.andre.sistema_pet.service.AtendimentoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,10 +27,13 @@ public class AtendimentoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AtendimentoResponse>> getAllAtendimentos() {
-        List<AtendimentoResponse> responses = atendimentoService.getAllAtendimentos();
-        return ResponseEntity.ok(responses);
+    public ResponseEntity<Page<AtendimentoResponse>> getAtendimentos(
+            @RequestParam(defaultValue = "0") int pageIndex,
+            @RequestParam(defaultValue = "10") int pageSize) {
+        Page<AtendimentoResponse> pageResult = atendimentoService.getAtendimentos(pageIndex, pageSize);
+        return ResponseEntity.ok(pageResult);
     }
+
 
     @GetMapping("/data/{data}")
     public ResponseEntity<List<AtendimentoResponse>> buscarAgendamentosPorData(
