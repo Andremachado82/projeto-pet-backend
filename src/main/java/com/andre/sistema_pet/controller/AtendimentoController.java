@@ -4,9 +4,11 @@ import com.andre.sistema_pet.dto.AtendimentoRequest;
 import com.andre.sistema_pet.dto.AtendimentoResponse;
 import com.andre.sistema_pet.service.AtendimentoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -27,6 +29,21 @@ public class AtendimentoController {
     public ResponseEntity<List<AtendimentoResponse>> getAllAtendimentos() {
         List<AtendimentoResponse> responses = atendimentoService.getAllAtendimentos();
         return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/data/{data}")
+    public ResponseEntity<List<AtendimentoResponse>> buscarAgendamentosPorData(
+            @PathVariable("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data) {
+        List<AtendimentoResponse> atendimentos = atendimentoService.getAgendamentosPorData(data);
+        return ResponseEntity.ok(atendimentos);
+    }
+
+    @GetMapping("/semana")
+    public ResponseEntity<List<AtendimentoResponse>> buscarAgendamentosPorSemana(
+            @RequestParam("dataInicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataInicio,
+            @RequestParam("dataFim") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataFim) {
+        List<AtendimentoResponse> atendimentos = atendimentoService.getAgendamentosPorSemana(dataInicio, dataFim);
+        return ResponseEntity.ok(atendimentos);
     }
 
     @GetMapping("/{id}")

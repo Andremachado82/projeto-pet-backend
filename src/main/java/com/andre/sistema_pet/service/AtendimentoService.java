@@ -14,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,6 +55,16 @@ public class AtendimentoService {
         return atendimentoEntities.stream()
                 .map(AtendimentoMapper::toResponse)
                 .collect(Collectors.toList());
+    }
+
+    public List<AtendimentoResponse> getAgendamentosPorData(LocalDate data) {
+        List<AtendimentoEntity> atendimentos = atendimentoRepository.findByDataAtendimento(data);
+        return atendimentos.stream().map(AtendimentoMapper::toResponse).toList();
+    }
+
+    public List<AtendimentoResponse> getAgendamentosPorSemana(LocalDate dataInicio, LocalDate dataFim) {
+        List<AtendimentoEntity> atendimentos = atendimentoRepository.findByDataAtendimentoBetween(dataInicio, dataFim);
+        return atendimentos.stream().map(AtendimentoMapper::toResponse).toList();
     }
 
     public AtendimentoResponse updateAtendimento(Long id, AtendimentoRequest request) {
