@@ -2,8 +2,6 @@ package com.andre.sistema_pet.controller;
 
 import com.andre.sistema_pet.dto.ProdutoRequest;
 import com.andre.sistema_pet.dto.ProdutoResponse;
-import com.andre.sistema_pet.dto.VacinaRequest;
-import com.andre.sistema_pet.dto.VacinaResponse;
 import com.andre.sistema_pet.service.ProdutoService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
@@ -15,6 +13,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/produtos")
@@ -37,6 +37,12 @@ public class ProdutoController {
 
         PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
         Page<ProdutoResponse> produtos = produtoService.findAll(pageRequest);
+        return ResponseEntity.ok(produtos);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ProdutoResponse>> searchByNome(@RequestParam String nome) {
+        List<ProdutoResponse> produtos = produtoService.findByNome(nome);
         return ResponseEntity.ok(produtos);
     }
 

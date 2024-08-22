@@ -15,6 +15,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ProdutoService {
 
@@ -72,20 +75,12 @@ public class ProdutoService {
         return modelMapper.map(produto, ProdutoResponse.class);
     }
 
-
-//    private String[] getNullPropertyNames(Object source) {
-//        final BeanWrapper src = new BeanWrapperImpl(source);
-//        java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
-//
-//        List<String> nullPropertyNames = new ArrayList<>();
-//        for (java.beans.PropertyDescriptor pd : pds) {
-//            if (src.getPropertyValue(pd.getName()) == null) {
-//                nullPropertyNames.add(pd.getName());
-//            }
-//        }
-//        return nullPropertyNames.toArray(new String[0]);
-//    }
-
+    public List<ProdutoResponse> findByNome(String nome) {
+        List<ProdutoEntity> produtos = produtoRepository.findByNomeContainingIgnoreCase(nome);
+        return produtos.stream()
+                .map(produto -> modelMapper.map(produto, ProdutoResponse.class))
+                .collect(Collectors.toList());
+    }
 
     //    @Transactional
 //    public void delete(Long id) {
