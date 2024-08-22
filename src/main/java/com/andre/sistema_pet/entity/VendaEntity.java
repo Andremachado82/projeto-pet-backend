@@ -3,6 +3,7 @@ package com.andre.sistema_pet.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class VendaEntity {
     private Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dataVenda;
+    private Date dataVenda = new Date();
 
     private String status;
 
@@ -32,4 +33,7 @@ public class VendaEntity {
 
     @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemVendaEntity> itens;
+
+    @Column(name = "versao")
+    private LocalDateTime dataCriacao =  LocalDateTime.now();
 }

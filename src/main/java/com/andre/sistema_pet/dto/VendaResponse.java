@@ -2,6 +2,8 @@ package com.andre.sistema_pet.dto;
 
 import lombok.Data;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +18,8 @@ public class VendaResponse {
     private Double totalVenda;
     private Double descontoGeral;
     private Double arredondamento;
-    private ClienteResponse cliente;
+    private Long clienteId;
+    private String nomeCliente;
     private List<ItemVendaResponse> itens;
+    private LocalDateTime dataCriacao;
 }

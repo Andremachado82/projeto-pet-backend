@@ -33,7 +33,9 @@ public class VendaMapper {
         response.setTotalVenda(venda.getTotalVenda());
         response.setDescontoGeral(venda.getDescontoGeral());
         response.setArredondamento(venda.getArredondamento());
-        response.setCliente(ClienteMapper.toResponse(venda.getCliente()));
+        response.setClienteId(venda.getCliente().getId());
+        response.setNomeCliente(venda.getCliente().getNome());
+        response.setDataCriacao(venda.getDataCriacao());
         response.setItens(venda.getItens().stream().map(ItemVendaMapper::toResponse).collect(Collectors.toList()));
         return response;
     }
