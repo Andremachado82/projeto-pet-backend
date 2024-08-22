@@ -1,5 +1,6 @@
 package com.andre.sistema_pet.controller;
 
+import com.andre.sistema_pet.dto.ClienteResponse;
 import com.andre.sistema_pet.dto.FornecedorRequest;
 import com.andre.sistema_pet.dto.FornecedorResponse;
 import com.andre.sistema_pet.service.FornecedorService;
@@ -13,6 +14,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/fornecedores")
@@ -32,6 +35,12 @@ public class FornecedorController {
                                                         @RequestParam(defaultValue = "20") @Positive @Max(100) int pageSize) {
         PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
         Page<FornecedorResponse> fornecedores = fornecedorService.findAll(pageRequest);
+        return ResponseEntity.ok(fornecedores);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<FornecedorResponse>> getFornecedoresPorNome(@RequestParam String nome) {
+        List<FornecedorResponse> fornecedores = fornecedorService.findByName(nome);
         return ResponseEntity.ok(fornecedores);
     }
 

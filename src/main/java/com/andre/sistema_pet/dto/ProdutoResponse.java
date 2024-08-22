@@ -1,12 +1,11 @@
 package com.andre.sistema_pet.dto;
 
-import com.andre.sistema_pet.entity.InformacoesBancarias;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class FornecedorResponse {
+public class ProdutoResponse {
 
     private Long id;
     private String nome;

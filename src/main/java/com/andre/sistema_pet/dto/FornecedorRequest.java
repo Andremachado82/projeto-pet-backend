@@ -19,5 +19,5 @@ public class FornecedorRequest {
     private String localidade;
     private String uf;
     private String inscricaoEstadual;
-    private List<String> produtosServicosOferecidos;
+    private List<String> produtos;
 }
