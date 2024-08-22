@@ -1,13 +1,8 @@
 package com.andre.sistema_pet.dto;
 
-import com.andre.sistema_pet.entity.FornecedorEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 public class ProdutoResponse {

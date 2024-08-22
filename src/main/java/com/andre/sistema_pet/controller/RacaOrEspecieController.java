@@ -1,6 +1,9 @@
 package com.andre.sistema_pet.controller;
 
-import com.andre.sistema_pet.dto.*;
+import com.andre.sistema_pet.dto.EspecieRequest;
+import com.andre.sistema_pet.dto.EspecieResponse;
+import com.andre.sistema_pet.dto.RacaRequest;
+import com.andre.sistema_pet.dto.RacaResponse;
 import com.andre.sistema_pet.service.RacaOrEspecieService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

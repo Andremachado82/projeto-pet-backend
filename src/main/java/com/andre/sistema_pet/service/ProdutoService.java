@@ -1,7 +1,9 @@
 package com.andre.sistema_pet.service;
 
-import com.andre.sistema_pet.dto.*;
-import com.andre.sistema_pet.entity.*;
+import com.andre.sistema_pet.dto.ProdutoRequest;
+import com.andre.sistema_pet.dto.ProdutoResponse;
+import com.andre.sistema_pet.entity.FornecedorEntity;
+import com.andre.sistema_pet.entity.ProdutoEntity;
 import com.andre.sistema_pet.exceptions.ResourceNotFoundException;
 import com.andre.sistema_pet.repository.FornecedorRepository;
 import com.andre.sistema_pet.repository.ProdutoRepository;

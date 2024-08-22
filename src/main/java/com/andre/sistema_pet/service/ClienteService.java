@@ -2,9 +2,7 @@ package com.andre.sistema_pet.service;
 
 import com.andre.sistema_pet.dto.ClienteRequest;
 import com.andre.sistema_pet.dto.ClienteResponse;
-import com.andre.sistema_pet.entity.AtendimentoEntity;
 import com.andre.sistema_pet.entity.ClienteEntity;
-import com.andre.sistema_pet.entity.PetEntity;
 import com.andre.sistema_pet.exceptions.ResourceNotFoundException;
 import com.andre.sistema_pet.mapper.ClienteMapper;
 import com.andre.sistema_pet.repository.AtendimentoRepository;

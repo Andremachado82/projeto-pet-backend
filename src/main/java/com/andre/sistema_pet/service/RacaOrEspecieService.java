@@ -1,9 +1,10 @@
 package com.andre.sistema_pet.service;
 
-import com.andre.sistema_pet.dto.*;
-import com.andre.sistema_pet.entity.ClienteEntity;
+import com.andre.sistema_pet.dto.EspecieRequest;
+import com.andre.sistema_pet.dto.EspecieResponse;
+import com.andre.sistema_pet.dto.RacaRequest;
+import com.andre.sistema_pet.dto.RacaResponse;
 import com.andre.sistema_pet.entity.EspecieEntity;
-import com.andre.sistema_pet.entity.PetEntity;
 import com.andre.sistema_pet.entity.RacaEntity;
 import com.andre.sistema_pet.exceptions.ResourceNotFoundException;
 import com.andre.sistema_pet.repository.EspecieRepository;
@@ -11,7 +12,6 @@ import com.andre.sistema_pet.repository.RacaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

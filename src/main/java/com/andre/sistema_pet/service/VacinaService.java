@@ -1,9 +1,7 @@
 package com.andre.sistema_pet.service;
 
-import com.andre.sistema_pet.dto.PetRequest;
 import com.andre.sistema_pet.dto.VacinaRequest;
 import com.andre.sistema_pet.dto.VacinaResponse;
-import com.andre.sistema_pet.entity.PetEntity;
 import com.andre.sistema_pet.entity.VacinaEntity;
 import com.andre.sistema_pet.exceptions.ResourceNotFoundException;
 import com.andre.sistema_pet.repository.VacinaRepository;
@@ -12,12 +10,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
 

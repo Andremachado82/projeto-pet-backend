@@ -1,6 +1,5 @@
 package com.andre.sistema_pet.controller;
 
-import com.andre.sistema_pet.dto.PetRequest;
 import com.andre.sistema_pet.dto.VacinaRequest;
 import com.andre.sistema_pet.dto.VacinaResponse;
 import com.andre.sistema_pet.service.VacinaService;

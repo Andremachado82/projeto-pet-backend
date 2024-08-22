@@ -1,6 +1,5 @@
 package com.andre.sistema_pet.controller;
 
-import com.andre.sistema_pet.dto.ClienteResponse;
 import com.andre.sistema_pet.dto.FornecedorRequest;
 import com.andre.sistema_pet.dto.FornecedorResponse;
 import com.andre.sistema_pet.service.FornecedorService;
