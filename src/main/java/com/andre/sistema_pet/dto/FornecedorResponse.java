@@ -21,5 +21,4 @@ public class FornecedorResponse {
     private String localidade;
     private String uf;
     private String inscricaoEstadual;
-    private List<String> produtos;
 }
