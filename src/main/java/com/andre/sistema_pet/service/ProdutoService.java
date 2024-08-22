@@ -38,11 +38,12 @@ public class ProdutoService {
         ProdutoEntity produto = modelMapper.map(request, ProdutoEntity.class);
 
         // Verificar se o fornecedorId foi fornecido e obter o fornecedor
+        FornecedorEntity fornecedor = null;
         if (request.getFornecedorId() != null) {
-            FornecedorEntity fornecedor = fornecedorRepository.findById(request.getFornecedorId())
+            fornecedor = fornecedorRepository.findById(request.getFornecedorId())
                     .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
-            produto.setFornecedor(fornecedor);
         }
+        produto.setFornecedor(fornecedor);
 
         // Salvar o produto
         produto = produtoRepository.save(produto);
@@ -55,6 +56,12 @@ public class ProdutoService {
     public ProdutoResponse update(Long id, ProdutoRequest request) {
         ProdutoEntity produto = produtoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Produto não encontrada com id " + id));
+
+        if (request.getFornecedorId() != null ) {
+            FornecedorEntity fornecedor = fornecedorRepository.findById(request.getFornecedorId())
+                    .orElse(null);
+            produto.setFornecedor(fornecedor);
+        }
 
         BeanUtils.copyProperties(request, produto);
 
