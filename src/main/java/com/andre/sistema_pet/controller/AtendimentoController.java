@@ -29,7 +29,7 @@ public class AtendimentoController {
     @GetMapping
     public ResponseEntity<Page<AtendimentoResponse>> getAtendimentos(
             @RequestParam(defaultValue = "0") int pageIndex,
-            @RequestParam(defaultValue = "10") int pageSize) {
+            @RequestParam(defaultValue = "20") int pageSize) {
         Page<AtendimentoResponse> pageResult = atendimentoService.getAtendimentos(pageIndex, pageSize);
         return ResponseEntity.ok(pageResult);
     }
