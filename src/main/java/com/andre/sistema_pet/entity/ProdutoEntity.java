@@ -8,38 +8,45 @@ import java.time.LocalTime;
 
 @Data
 @Entity
-@Table(name = "tb_atendimento")
+@Table(name = "tb_produto")
 public class ProdutoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "data_atendimento")
-    private LocalDate dataAtendimento;
+    private String nome;
 
-    @Column(name = "hora_atendimento")
-    private LocalTime horaAtendimento;
+    private String categoria;
 
-    @Column(name = "tipo_atendimento")
-    private String tipoAtendimento;
+    private String marca;
 
-    @Column(name = "descricao_atendimento")
-    private String descricaoAtendimento;
+    private String unidade;
 
-    @Column(name = "status")
-    private String status;
+    private LocalDate dataValidade;
+
+    @Column(name = "preco_custo")
+    private Double precoCusto;
+
+    @Column(name = "preco_venda")
+    private Double precoVenda;
+
+    @Column(name = "margem_lucro")
+    private Double margemLucro;
+
+    private Float comissao;
+
+    private String ncm;
+
+    @Column(name = "codigo_interno")
+    private String codigoInterno;
+
+    @Column(name = "codigo_barras")
+    private String codigoBarras;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private ClienteEntity cliente;
-
-    @ManyToOne
-    @JoinColumn(name = "pet_id")
-    private PetEntity pet;
-
-    @Column(name = "valor_atendimento")
-    private Double valorAtendimento;
+    @JoinColumn(name = "fornecedor_id")
+    private FornecedorEntity fornecedor;
 
     @Column(name = "ativo")
     private Boolean ativo = true;
