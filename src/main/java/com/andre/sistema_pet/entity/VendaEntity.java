@@ -1,5 +1,7 @@
 package com.andre.sistema_pet.entity;
 
+import com.andre.sistema_pet.enums.EFormaPagamento;
+import com.andre.sistema_pet.enums.ETipoCartao;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -34,6 +36,19 @@ public class VendaEntity {
     @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemVendaEntity> itens;
 
+    @Enumerated(EnumType.STRING)
+    private ETipoCartao tipoCartao;
+
+    @Enumerated(EnumType.STRING)
+    private EFormaPagamento formaPagamento;
+
+    private Integer numeroCheque;
+
+    private Integer bancoCheque;
+
+    @Temporal(TemporalType.DATE)
+    private Date dataCompensacaoCheque;
+
     @Column(name = "versao")
-    private LocalDateTime dataCriacao =  LocalDateTime.now();
+    private LocalDateTime dataCriacao = LocalDateTime.now();
 }

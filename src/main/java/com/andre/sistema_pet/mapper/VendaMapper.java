@@ -3,25 +3,69 @@ package com.andre.sistema_pet.mapper;
 import com.andre.sistema_pet.dto.VendaRequest;
 import com.andre.sistema_pet.dto.VendaResponse;
 import com.andre.sistema_pet.entity.ClienteEntity;
+import com.andre.sistema_pet.entity.ItemVendaEntity;
 import com.andre.sistema_pet.entity.VendaEntity;
+import com.andre.sistema_pet.repository.ClienteRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class VendaMapper {
 
-    public static VendaEntity toEntity(VendaRequest request, ClienteEntity cliente) {
-        VendaEntity venda = new VendaEntity();
-        venda.setDataVenda(request.getDataVenda());
-        venda.setStatus(request.getStatus());
-        venda.setTotalBruto(request.getTotalBruto());
-        venda.setTotalDesconto(request.getTotalDesconto());
-        venda.setTotalVenda(request.getTotalVenda());
-        venda.setDescontoGeral(request.getDescontoGeral());
-        venda.setArredondamento(request.getArredondamento());
-        venda.setCliente(cliente);
-        venda.setItens(request.getItens().stream().map(ItemVendaMapper::toEntity).collect(Collectors.toList()));
-        return venda;
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    public VendaEntity toEntity(VendaRequest request) {
+        VendaEntity vendaEntity = modelMapper.map(request, VendaEntity.class);
+
+        // Mapear o cliente
+        if (request.getClienteId() != null) {
+            ClienteEntity cliente = clienteRepository.findById(request.getClienteId())
+                    .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
+            vendaEntity.setCliente(cliente);
+        }
+
+        // Mapear os itens
+        List<ItemVendaEntity> itens = request.getItens().stream()
+                .map(itemRequest -> {
+                    ItemVendaEntity itemEntity = modelMapper.map(itemRequest, ItemVendaEntity.class);
+                    return itemEntity;
+                })
+                .collect(Collectors.toList());
+        vendaEntity.setItens(itens);
+
+        return vendaEntity;
     }
+
+    public void updateEntityFromRequest(VendaRequest request, VendaEntity vendaEntity) {
+        // Atualiza os campos da entidade venda com base no request
+        modelMapper.map(request, vendaEntity);
+
+        // Atualizar o cliente se necessário
+        if (request.getClienteId() != null) {
+            ClienteEntity cliente = clienteRepository.findById(request.getClienteId())
+                    .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
+            vendaEntity.setCliente(cliente);
+        }
+
+        // Atualizar os itens
+        List<ItemVendaEntity> itens = request.getItens().stream()
+                .map(itemRequest -> {
+                    ItemVendaEntity itemEntity = modelMapper.map(itemRequest, ItemVendaEntity.class);
+                    return itemEntity;
+                })
+                .collect(Collectors.toList());
+        vendaEntity.setItens(itens);
+    }
+
 
     public static VendaResponse toResponse(VendaEntity venda) {
         VendaResponse response = new VendaResponse();
