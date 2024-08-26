@@ -1,5 +1,6 @@
 package com.andre.sistema_pet.mapper;
 
+import com.andre.sistema_pet.dto.ClienteResponse;
 import com.andre.sistema_pet.dto.VendaRequest;
 import com.andre.sistema_pet.dto.VendaResponse;
 import com.andre.sistema_pet.entity.ClienteEntity;
@@ -67,9 +68,9 @@ public class VendaMapper {
     }
 
 
-    public static VendaResponse toResponse(VendaEntity venda) {
+    public VendaResponse toResponse(VendaEntity venda) {
         VendaResponse response = new VendaResponse();
-        response.setId(venda.getId());
+        response.setIdVenda(venda.getIdVenda());
         response.setDataVenda(venda.getDataVenda());
         response.setStatus(venda.getStatus());
         response.setTotalBruto(venda.getTotalBruto());
@@ -77,10 +78,19 @@ public class VendaMapper {
         response.setTotalVenda(venda.getTotalVenda());
         response.setDescontoGeral(venda.getDescontoGeral());
         response.setArredondamento(venda.getArredondamento());
+        response.setCliente(modelMapper.map(venda.getCliente(), ClienteResponse.class));
         response.setClienteId(venda.getCliente().getId());
         response.setNomeCliente(venda.getCliente().getNome());
         response.setDataCriacao(venda.getDataCriacao());
         response.setItens(venda.getItens().stream().map(ItemVendaMapper::toResponse).collect(Collectors.toList()));
+
+        response.setValorTotal(venda.getTotalVenda());
+        response.setTipoCartao(venda.getTipoCartao() != null ? venda.getTipoCartao().name() :  null) ;
+        response.setFormaPagamento(venda.getFormaPagamento() != null ? venda.getFormaPagamento().name() : null);
+        response.setNumeroCheque(venda.getNumeroCheque() != null ? venda.getNumeroCheque() : null);
+        response.setBancoCheque(venda.getBancoCheque() != null ? venda.getBancoCheque() : null);
+        response.setDataCompensacaoCheque(venda.getDataCompensacaoCheque() != null ? venda.getDataCompensacaoCheque() : null);
+
         return response;
     }
 }

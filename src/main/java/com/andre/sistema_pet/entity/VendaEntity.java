@@ -16,7 +16,8 @@ public class VendaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(unique = true)
+    private Long idVenda;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataVenda = new Date();
