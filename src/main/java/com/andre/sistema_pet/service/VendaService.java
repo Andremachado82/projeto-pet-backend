@@ -74,10 +74,8 @@ public class VendaService {
     }
 
     public Page<VendaResponse> findAll(PageRequest pageRequest) {
-        // Buscar as vendas paginadas no repositório
         Page<VendaEntity> vendasPage = vendaRepository.findAll(pageRequest);
 
-        // Converter as entidades para o DTO de resposta
         Page<VendaResponse> vendaResponses = vendasPage.map(vendaEntity -> vendaMapper.toResponse(vendaEntity));
 
         return vendaResponses;
