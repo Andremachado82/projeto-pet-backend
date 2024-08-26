@@ -5,7 +5,12 @@ import com.andre.sistema_pet.dto.VendaResponse;
 import com.andre.sistema_pet.service.VendaService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +36,19 @@ public class VendaController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao finalizar a venda: " + e.getMessage());
         }
     }
+
+    @GetMapping
+    public ResponseEntity<Page<VendaResponse>> getAllVendas(@RequestParam(defaultValue = "0") @PositiveOrZero int pageIndex,
+                                                        @RequestParam(defaultValue = "20") @Positive @Max(100) int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
+        Page<VendaResponse> vendas = vendaService.findAll(pageRequest);
+        return ResponseEntity.ok(vendas);
+    }
+    @GetMapping("/{id}")
+    public VendaResponse getVendaPorId(@PathVariable Long id) {
+        return vendaService.getVendaPorId(id);
+    }
+
 
     @PutMapping("/atualizar/{id}")
     public ResponseEntity<VendaResponse> atualizarVenda(@PathVariable Long id, @Valid @RequestBody VendaRequest request) {

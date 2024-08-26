@@ -1,10 +1,14 @@
 package com.andre.sistema_pet.service;
 
+import com.andre.sistema_pet.dto.ClienteResponse;
+import com.andre.sistema_pet.dto.PetResponse;
 import com.andre.sistema_pet.dto.VendaRequest;
 import com.andre.sistema_pet.dto.VendaResponse;
 import com.andre.sistema_pet.entity.ClienteEntity;
 import com.andre.sistema_pet.entity.ItemVendaEntity;
+import com.andre.sistema_pet.entity.PetEntity;
 import com.andre.sistema_pet.entity.VendaEntity;
+import com.andre.sistema_pet.mapper.PetMapper;
 import com.andre.sistema_pet.mapper.VendaMapper;
 import com.andre.sistema_pet.repository.ClienteRepository;
 import com.andre.sistema_pet.repository.ItemVendaRepository;
@@ -14,7 +18,11 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class VendaService {
@@ -36,16 +44,18 @@ public class VendaService {
     public VendaResponse criarVenda(VendaRequest request) {
         VendaEntity vendaEntity = vendaMapper.toEntity(request);
 
-        vendaEntity = vendaRepository.save(vendaEntity);
+        vendaEntity.setIdVenda(null);
 
-        final VendaEntity savedVendaEntity = vendaEntity;
+        for (ItemVendaEntity item : vendaEntity.getItens()) {
+            item.setVenda(vendaEntity);
+        }
 
-        savedVendaEntity.getItens().forEach(item -> item.setVenda(savedVendaEntity));
+        VendaEntity savedVendaEntity = vendaRepository.save(vendaEntity);
 
-        vendaEntity = vendaRepository.save(savedVendaEntity);
-
-        return vendaMapper.toResponse(vendaEntity);
+        return vendaMapper.toResponse(savedVendaEntity);
     }
+
+
 
 
     @Transactional
@@ -61,6 +71,22 @@ public class VendaService {
             item.setVenda(vendaEntity);
             itemVendaRepository.save(item);
         }
+    }
+
+    public Page<VendaResponse> findAll(PageRequest pageRequest) {
+        // Buscar as vendas paginadas no repositório
+        Page<VendaEntity> vendasPage = vendaRepository.findAll(pageRequest);
+
+        // Converter as entidades para o DTO de resposta
+        Page<VendaResponse> vendaResponses = vendasPage.map(vendaEntity -> vendaMapper.toResponse(vendaEntity));
+
+        return vendaResponses;
+    }
+
+    public VendaResponse getVendaPorId(Long id) {
+        VendaEntity venda = vendaRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
+        return vendaMapper.toResponse(venda);
     }
 
     @Transactional
