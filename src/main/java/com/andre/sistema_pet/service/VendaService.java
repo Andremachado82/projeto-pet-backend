@@ -1,22 +1,18 @@
 package com.andre.sistema_pet.service;
 
-import com.andre.sistema_pet.dto.ClienteResponse;
-import com.andre.sistema_pet.dto.PetResponse;
+import com.andre.sistema_pet.dto.ItemVendaRequest;
 import com.andre.sistema_pet.dto.VendaRequest;
 import com.andre.sistema_pet.dto.VendaResponse;
-import com.andre.sistema_pet.entity.ClienteEntity;
 import com.andre.sistema_pet.entity.ItemVendaEntity;
-import com.andre.sistema_pet.entity.PetEntity;
 import com.andre.sistema_pet.entity.VendaEntity;
-import com.andre.sistema_pet.mapper.PetMapper;
+import com.andre.sistema_pet.mapper.ItemVendaMapper;
 import com.andre.sistema_pet.mapper.VendaMapper;
 import com.andre.sistema_pet.repository.ClienteRepository;
 import com.andre.sistema_pet.repository.ItemVendaRepository;
 import com.andre.sistema_pet.repository.VendaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
-import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -76,9 +72,7 @@ public class VendaService {
     public Page<VendaResponse> findAll(PageRequest pageRequest) {
         Page<VendaEntity> vendasPage = vendaRepository.findAll(pageRequest);
 
-        Page<VendaResponse> vendaResponses = vendasPage.map(vendaEntity -> vendaMapper.toResponse(vendaEntity));
-
-        return vendaResponses;
+        return vendasPage.map(vendaEntity -> vendaMapper.toResponse(vendaEntity));
     }
 
     public VendaResponse getVendaPorId(Long id) {
@@ -91,18 +85,19 @@ public class VendaService {
     public VendaResponse atualizarVenda(Long id, VendaRequest request) {
         VendaEntity vendaExistente = vendaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Venda não encontrada"));
+        vendaExistente.getItens().clear();
 
-        vendaMapper.updateEntityFromRequest(request, vendaExistente);
+        BeanUtils.copyProperties(request, vendaExistente, "idVenda", "itens");
 
-        VendaEntity updatedVendaEntity = vendaRepository.save(vendaExistente);
+        if (request.getItens() != null) {
+            for (ItemVendaRequest itemRequest : request.getItens()) {
+                ItemVendaEntity itemEntity = ItemVendaMapper.toEntity(itemRequest);
+                itemEntity.setVenda(vendaExistente);
+                vendaExistente.getItens().add(itemEntity);
+            }
+        }
+        vendaExistente = vendaRepository.save(vendaExistente);
 
-        final VendaEntity finalVendaEntity = updatedVendaEntity;
-
-        finalVendaEntity.getItens().forEach(item -> item.setVenda(finalVendaEntity));
-
-        updatedVendaEntity = vendaRepository.save(finalVendaEntity);
-
-        return vendaMapper.toResponse(updatedVendaEntity);
+        return vendaMapper.toResponse(vendaExistente);
     }
-
 }
