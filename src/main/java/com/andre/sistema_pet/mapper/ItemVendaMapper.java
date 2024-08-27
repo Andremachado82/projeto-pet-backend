@@ -9,7 +9,6 @@ public class ItemVendaMapper {
     public static ItemVendaEntity toEntity(ItemVendaRequest request) {
         ItemVendaEntity item = new ItemVendaEntity();
 
-        // Calcular totalSemDesconto e total
         double totalSemDesconto = request.getQuantidade() * request.getPrecoUnitario();
         double descontoPercentual = request.getDesconto() / 100.0;
         double total = totalSemDesconto - (totalSemDesconto * descontoPercentual);
