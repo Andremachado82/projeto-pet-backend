@@ -1,7 +1,7 @@
 package com.andre.sistema_pet.entity;
 
-import com.andre.sistema_pet.enums.EFormaPagamento;
-import com.andre.sistema_pet.enums.ETipoCartao;
+import com.andre.sistema_pet.enums.FormaPagamento;
+import com.andre.sistema_pet.enums.TipoCartao;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -38,10 +38,10 @@ public class VendaEntity {
     private List<ItemVendaEntity> itens;
 
     @Enumerated(EnumType.STRING)
-    private ETipoCartao tipoCartao;
+    private TipoCartao tipoCartao;
 
     @Enumerated(EnumType.STRING)
-    private EFormaPagamento formaPagamento;
+    private FormaPagamento formaPagamento;
 
     private Integer numeroCheque;
 

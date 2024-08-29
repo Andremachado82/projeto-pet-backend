@@ -1,7 +1,7 @@
 package com.andre.sistema_pet.dto;
 
-import com.andre.sistema_pet.enums.EFormaPagamento;
-import com.andre.sistema_pet.enums.ETipoCartao;
+import com.andre.sistema_pet.enums.FormaPagamento;
+import com.andre.sistema_pet.enums.TipoCartao;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -41,9 +41,9 @@ public class VendaRequest {
     @NotNull
     private List<ItemVendaRequest> itens;
 
-    private ETipoCartao tipoCartao;
+    private TipoCartao tipoCartao;
 
-    private EFormaPagamento formaPagamento;
+    private FormaPagamento formaPagamento;
 
     private Integer numeroCheque;
 
