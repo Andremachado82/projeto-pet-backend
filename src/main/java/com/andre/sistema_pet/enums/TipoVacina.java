@@ -1,6 +1,6 @@
 package com.andre.sistema_pet.enums;
 
-public enum ETipoVacina {
+public enum TipoVacina {
 
     ANTIRRABICA,
     GIARDIA,
