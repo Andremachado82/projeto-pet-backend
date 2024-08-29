@@ -3,6 +3,7 @@ package com.andre.sistema_pet.service;
 import com.andre.sistema_pet.dto.VacinaRequest;
 import com.andre.sistema_pet.dto.VacinaResponse;
 import com.andre.sistema_pet.entity.VacinaEntity;
+import com.andre.sistema_pet.enums.TipoVacina;
 import com.andre.sistema_pet.exceptions.ResourceNotFoundException;
 import com.andre.sistema_pet.repository.VacinaRepository;
 import org.modelmapper.ModelMapper;
@@ -27,16 +28,25 @@ public class VacinaService {
 
     public Page<VacinaResponse> findAll(Pageable pageable) {
         Page<VacinaEntity> vacinasPage = vacinaRepository.findAll(pageable);
-        return vacinasPage.map(vacinaEntity -> modelMapper.map(vacinaEntity, VacinaResponse.class));
+        return vacinasPage.map(vacinaEntity -> {
+            VacinaResponse vacinaResponse = modelMapper.map(vacinaEntity, VacinaResponse.class);
+            vacinaResponse.setTipo(vacinaEntity.getTipo().getDescricao());
+            return vacinaResponse;
+        });
     }
 
     @Transactional
     public VacinaResponse create(VacinaRequest request) {
-        VacinaEntity vacina = modelMapper.map(request, VacinaEntity.class);
+        TipoVacina tipo = TipoVacina.valueOf(request.getTipo());
 
+        VacinaEntity vacina = modelMapper.map(request, VacinaEntity.class);
+        vacina.setTipo(tipo);
+        vacina.setAtivo(true);
         vacina = vacinaRepository.save(vacina);
 
-        return modelMapper.map(vacina, VacinaResponse.class);
+        VacinaResponse vacinaResponse = modelMapper.map(vacina, VacinaResponse.class);
+        vacinaResponse.setTipo(tipo.getDescricao());
+        return vacinaResponse;
     }
 
     @Transactional
@@ -46,9 +56,13 @@ public class VacinaService {
 
         BeanUtils.copyProperties(request, vacina);
 
+        vacina.setTipo(TipoVacina.getDescricaoTipoVacina(request.getTipo()));
         vacina = vacinaRepository.save(vacina);
 
-        return modelMapper.map(vacina, VacinaResponse.class);
+        VacinaResponse vacinaResponse = modelMapper.map(vacina, VacinaResponse.class);
+        vacinaResponse.setTipo(vacina.getTipo().getDescricao());
+
+        return vacinaResponse;
     }
 
 //    @Transactional
