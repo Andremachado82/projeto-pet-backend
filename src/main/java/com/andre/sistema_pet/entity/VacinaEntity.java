@@ -1,5 +1,6 @@
 package com.andre.sistema_pet.entity;
 
+import com.andre.sistema_pet.enums.TipoVacina;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,9 +14,16 @@ public class VacinaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, unique = true)
     private Long id;
+
+    @Column(nullable = false)
     private String nome;
-    private String tipo;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TipoVacina tipo;
+
     private String fabricante;
     private String lote;
     private LocalDate dataValidade;
