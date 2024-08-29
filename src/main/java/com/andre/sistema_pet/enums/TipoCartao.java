@@ -1,6 +1,6 @@
 package com.andre.sistema_pet.enums;
 
-public enum ETipoCartao {
+public enum TipoCartao {
 
     VISA,
     MASTERCARD,
